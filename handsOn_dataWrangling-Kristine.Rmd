@@ -1,0 +1,71 @@
+---
+title: "handsOn_dataWrangling"
+author: "Kristine"
+date: "2021-09-21"
+output: html_document
+---
+
+# Part 2 - Data Wrangling
+
+# Loading package
+
+Write a code:
+- loads "tidyverse" package
+- if the package is not installed, what command you use to install it (add this line with # at the beginning to mark it as a comment)
+
+```{r q1_P2}
+install.packages("tidyverse")
+#if you already have the package, you can just type library and it will show up on the tab button library("tidyverse")
+
+
+```
+
+Comment on:
+- Why below code is not working (hint: here() is a function from "here" package)
+
+```{r q2_P2, error=TRUE}
+
+# did not load the correct function. we have to load the library
+library(tidyverse)
+install.packages("here")
+library(here)
+here()
+```
+
+Write a code:
+- necessary to be able to use here() function above :)
+
+```{r q3_P2}
+install.packages("here")
+library(here)
+here()
+
+```
+
+# Loading data
+
+- Create a folder named DATA under your project folder (RMED901)
+- Download Konsultasjoner.csv on the github page under DATA folder
+
+Write a code:
+- loading data Konsultasjoner.csv on RStudio (remember to download data under "DATA" folder under your main project folder)
+- open the data and look at it
+
+
+```{r}
+myData<-read_csv(here("DATA","Konsultasjoner.csv"))
+```
+
+#myData<-read_delim(here("DATA","Konsultasjoner.csv",delim="/t"))
+```{r}
+myData<-read_delim(here("DATA","Konsultasjoner.csv",delim="/t"))
+```
+
+
+#she added delim function to read the file differently. there were some strange observatoins. but i cant see it here because i dont have the here package available.
+```{r}
+myData%<%,pivot_longer(names_to="year",values_to="nConsultations",cols=4:12)
+```
+#if you want to change the columns, you cna use "separate" command. e.g you can choose to only have miminum and maximum age, instead of the whole age range. 
+#r doesnt like numbers for objects or names on data. if you use numbers as an observation, use back ticks around it: ´1446`
+

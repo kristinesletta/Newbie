@@ -1,0 +1,11 @@
+---
+title: "Untitled"
+author: "Kristine"
+date: "...."
+output: html_document
+```{r}
+a<-1
+b<-2
+y<-a+b
+```
+

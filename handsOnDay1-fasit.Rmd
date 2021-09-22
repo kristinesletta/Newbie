@@ -1,0 +1,268 @@
+---
+title: "Hands-on - Day 1"
+author: "Kristine"
+date: "2021-09-20"
+output: html_document
+---
+
+# Part 1
+
+# Calculation
+
+Write a code:
+- calculates "5 * 8"
+
+```{r q1}
+5 * 8
+```
+
+# Objects
+
+Write a code:
+- stores value "5" to object "a"
+- stores value "8" to object "b"
+- stores multiplication of "a" and "b" as "z"
+- shows value of "z"
+
+```{r q2}
+a <- 5
+b <- 8
+z <- a * b
+z
+```
+
+Comment on :
+- Why below code is not working:
+
+```{r q3, error =TRUE}
+1a <- 5 # object names cannot start with a number
+b <- 8
+z <- 1a * b
+z
+```
+
+# Functions
+
+A function is a procedure which takes some information (input), does something to it, and passes back the modified information (output).
+
+# R functions
+
+Write a code:
+- calculates square root of 10 by using an R function (hint: google square root in R)
+
+```{r q4}
+sqrt(10)
+```
+
+If you run a function without assignment to an object, it is output will be shown on console and on your Rmarkdown file if you are using one like this but its output will not be saved in your environment. The general rule, which is if you see the output it is not saved, applies here as well.
+
+Write a code:
+- stores value of 3.14159265359 to object pi
+- rounds value of pi to 2 decimals (hint: write "round" to search box on help tab and search for it!)
+
+```{r q5}
+pi <- 3.14159265359
+round(pi, 2)
+```
+
+Write a code:
+- stores string "HeLLo" to object "word"
+- shows "word" all lower case (hello) (hint: use tolower() function)
+- shows "word" all upper case (HELLO) (hint: use toupper() function)
+
+```{r q6}
+word <- "HeLLo"
+tolower(word)
+toupper(word)
+```
+
+Comment on:
+- Why below code is not working:
+
+```{r q7 error =TRUE}
+word2 <- HeLLo
+tolower(word2)
+toupper(word2)
+# since we didn't put word HeLLo in between double quotes, R searches for an object named HeLLo instead of taking it as a character
+```
+
+rnorm() function generates random variables from a normal distribution
+Write a code:
+- finds arguments of rnorm()
+- comment on which arguments are optional 
+- comment on default values of optional arguments
+
+```{r q8}
+args(rnorm)
+# these arguments are optional: mean and sd
+# default values of optional arguments are: 0 for mean and 1 for sd
+```
+
+Write a code:
+- generates 100 random normal values with a mean of 100 and sd of 15
+- saves this to object named y
+- checks mean and sd - are they 100 and 15 as we expect?
+ 
+```{r q9}
+rnorm(100, mean = 100, sd = 15)
+y <- rnorm(100, mean = 100, sd = 15) 
+mean(y)
+sd(y)
+```
+
+At this point, we can mention the most common arithmetic functions in data analysis. These are sum(), mean(), median(), min(), max(), sd() and IQR(). The last two are to calculate standard deviation and interquartile range. Others are self-explanatory. An import thing to remember relates to missing data: if any of your values is NA (not available; missing), these functions will return an NA. There is an argument written as na.rm and if you set this argument to TRUE, missing values will be removed and the calculation will be done for available numbers. The na.rm = TRUE is fine to use if quickly exploring and cleaning data, or if you’ve already investigated missing values and are convinced the existing ones are representative.
+
+You can also write your own functions:
+
+Write a code:
+- stores value "5" to object "a"
+- stores value "8" to object "b"
+- includes a function named "multiplication" to multiply two values
+- calls this function with using "a" and "b" and storing the value as "z"
+- shows value of z
+
+```{r q10}
+a <- 5
+b <- 8
+multiplication <- function(x, y){
+  res <- x*y
+  return(res)
+}
+z <- multiplication(a, b)
+z
+```
+
+Comment on:
+- Why below code is not working:
+
+```{r q11, error =TRUE}
+a <- 5
+b <- 8
+multiplication <- function(){ 
+  res <- x*y
+  return(res)
+}
+z <- multiplication(a, b) 
+z
+# the function is not taking any arguments but it needs x and y 
+# since there is no argument is defined above, a and b are not used 
+```
+
+# Vectors
+
+Discuss and comment on:
+- What is the type of y in q9? 
+- What are the types of a and b in q2?
+- What is the type of word in q6?
+- Check their types by using class() and typeof() functions. Are there any differences?
+
+Comments:
+
+y is a numeric vector with size 100
+a and b are numeric vectors of size 1
+word is a character vector of size 1
+
+```{r q12}
+class(y)
+class(a)
+class(b)
+class(word)
+typeof(word)
+```
+
+Write a code:
+- Creates a vector with values 3, 6, 2 and 10, and stores this as "x" (hint: use function c(), get help by using ?c if you need)
+- Calculates mean and sd values of x
+
+```{r q13}
+x <- c(3, 6, 2, 10)
+mean(x)
+sd(x)
+```
+
+Comment on:
+- Is the code below working as you expect?
+- If it is not, why? (hint: check q13)
+
+```{r q14, error=TRUE}
+mean(3, 6, 2, 10)
+sd(3, 6, 2, 10)
+# mean and sd function needs a list of numbers as their argument to make calculations. To calculate mean and sd for a list of numbers, we should combine them as a vector of numbers by using c(). While mean() function behaves as not caring for additional arguments and taking the first value 3 as the sole input and calculates mean as 3, sd function behaves differently and throws an error to warn us there are unused arguments. Which one is preferable?
+```
+
+Comment on:
+- Is the code below working as you expect?
+- If it is not, why? 
+- Can we calculate the mean for the numbers in this vector using mean() function? (hint: check arguments) Add this to the last line of code chunk.
+
+```{r q15}
+x <- c(3, 6, 2, NA)
+mean(x)
+# because of missing value NA, mean and sd calculations result in NA
+mean(x, na.rm = T)
+```
+
+Be careful with na.rm = T, you might be calculating mean of a variable by using only handful of values.
+
+Write a code:
+- shows 2nd and 4th elements of x
+
+```{r q16}
+x[2]
+x[4]
+```
+
+Comment:
+- What happens when you run the following code:
+
+```{r q17}
+x <- c(3, 6, 2, NA)
+x + 1
+```
+
+Comment on:
+- the types of below vectors - is there anything unexpected?
+
+```{r q18}
+vec1 <- c(1, 7, 3)
+typeof(vec1)
+vec2 <- c("Height", "Weight", "BMI")
+typeof(vec2)
+vec3 <- c(1L, 7L, 3L) # additional L at the end of a number makes it integer 
+typeof(vec3)
+vec4 <- c(T, F, TRUE) # there are 2 ways to write logical both with capital letters: T or TRUE, F or FALSE
+typeof(vec4)
+vec5 <- c(1, "BMI", 3) # All elements are characters because of "BMI"
+typeof(vec5)
+vec6 <- c("Height", "BMI", T) # T is taken as character "T"
+typeof(vec6)
+vec7 <- c(1, 7, NA) # NA is ignored and the types of elements are double since all others are numbers
+typeof(vec7)
+```
+
+Comment on:
+- Why below code is not working:
+
+```{r q19, error =TRUE}
+vec <- c(1, 4, "a")
+vec + 1 # because all elements of a vector should be of same type and here all elements are characters
+```
+
+Comment on:
+- Why below code is not working:
+
+```{r q20, error =TRUE}
+vec1101 <- c(1, 4, 5)
+result <- vec1011 + 1 # there is a type on variable name
+result
+```
+
+# End of Part 1
+
+
+
+
+
+
+Ref:
+- https://rstudio.cloud/learn/primers
